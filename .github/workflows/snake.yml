@@ -1,0 +1,49 @@
+name: Generate Snake Animation
+
+
+# When this action runs
+on:
+
+  # Automatically run every 12 hours
+  schedule:
+    - cron: "0 */12 * * *"
+
+
+  # Allow manual running
+  workflow_dispatch:
+
+
+
+jobs:
+
+  generate:
+
+    runs-on: ubuntu-latest
+
+
+    steps:
+
+
+      # Generate snake animation
+      - uses: Platane/snk@v3
+
+        with:
+
+          github_user_name: surendra945
+
+          outputs: |
+            dist/github-contribution-grid-snake.svg
+
+
+
+      # Upload generated file
+      - uses: crazy-max/ghaction-github-pages@v4
+
+        with:
+
+          build_dir: dist
+
+
+        env:
+
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
